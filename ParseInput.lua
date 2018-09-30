@@ -3,7 +3,7 @@ local function ParseInterruptString(str)
 	
 	local priorityList = {}
 	
-	for i, priority in pairs(priority) do
+	for i, priority in pairs(priorities) do
 		local order = { strsplit(">,", priority) }
 		table.insert(priorityList, order)
 	end

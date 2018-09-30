@@ -20,11 +20,12 @@ end
 
 function aura_env:Stop()
 	self.running = false
-	ChatThrottleLib:SendAddonMessage("NORMAL", addonPrefix, "hide", "raid")
+	local channel = IsInRaid() and "raid" or "party"
+	ChatThrottleLib:SendAddonMessage("NORMAL", addonPrefix, "hide", channel)
 end
 
 function aura_env:Start()
 	self.running = true
 end
 
-aura_env.running = false
+aura_env.running = true

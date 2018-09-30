@@ -20,4 +20,5 @@ local interrupts = { --[spellId]=cooldown
     [19647]  = 24, --Spell Lock if used from pet bar
     [132409] = 24, --Spell Lock Command Demon Sacrifice
     [15487]  = 45, --Silence
+	[1464]   = 10, --Slam for testing. delet this
 }
