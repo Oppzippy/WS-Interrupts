@@ -1,3 +1,5 @@
+local addonPrefix = "WS_INT_ROTATION"
+
 local function StripRealm(unit)
 	local hyphenPos = string.find(unit, "-")
 	

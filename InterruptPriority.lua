@@ -9,6 +9,7 @@ local function CreateInterruptPriority(priority, cooldownWatcher)
 	
 	self.cooldownWatcher = cooldownWatcher
 	self.basePriority = priority
+	self.prevInterrupter = nil
 	-- Index both directions for faster lookup
 	for i, unit in ipairs(priority) do
 		priority[unit] = i
@@ -27,6 +28,10 @@ end
 
 function InterruptPriority:IsUnitFree(unit)
 	unit = StripRealm(unit)
+	
+	if UnitIsDeadOrGhost(unit) then
+		return false
+	end
 	
 	for i = 1, 255 do
 		local spellId = select(10, UnitAura(unit, i, "HARMFUL"))
@@ -79,4 +84,16 @@ function InterruptPriority:GetHighestPriority()
 	else
 		return lowestCdUnit
 	end
+end
+
+function InterruptPriority:Update()
+	local interrupter = self:GetHighestPriority()
+	local prevInterrupter = self.prevInterrupter
+	
+	if interrupter ~= prevInterrupter then
+		ChatThrottleLib:SendAddonMessage("ALERT", addonPrefix, "show", "whisper", interrupter)
+		ChatThrottleLib:SendAddonMessage("ALERT", addonPrefix, "hide", "whisper", prevInterrupter)
+	end
+	
+	self.prevInterrupter = interrupter
 end

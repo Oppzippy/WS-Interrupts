@@ -1,4 +1,4 @@
-local function LoadString(str)
+local function ParseInterruptString(str)
 	local priorities = { strsplit(";", str) }
 	
 	local priorityList = {}
