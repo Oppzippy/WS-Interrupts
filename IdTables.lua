@@ -2,6 +2,8 @@ local badDebuffs = {
 	[265646] = true, -- Will of the Corrupter (Zek'Voz)
 }
 
+aura_env.badDebuffs = badDebuffs
+
 -- From nnogga's interrupt tracker
 local interrupts = { --[spellId]=cooldown
     [47528]  = 15, --Mind Freeze
