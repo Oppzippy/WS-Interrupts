@@ -19,6 +19,10 @@ local function CreateInterruptPriority(priority, cooldownWatcher)
 	return intPriority
 end
 
+function InterruptPriority:GetCurrentInterrupter()
+	return self.prevInterrupter
+end
+
 -- Indended for finding a unit's priority
 function InterruptPriority:GetUnitPriority(unit)
 	return self.basePriority[unit]
@@ -56,12 +60,11 @@ function InterruptPriority:GetHighestPriority()
 	for priority, unit in ipairs(self.basePriority) do
 		local cd = cooldownWatcher:GetCooldown(unit)
 		if not cd then -- Off cd
-			if not priorityTable then
-				priorityTable = {}
-			end
-			
 			local isFree = self:IsUnitFree(unit) -- check for CC
 			if isFree then
+				if not priorityTable then
+					priorityTable = {}
+				end
 				table.insert(priorityTable, unit)
 			end
 		elseif not priorityTable then -- Is on cd and haven't found a 0 cd yet

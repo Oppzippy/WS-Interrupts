@@ -28,4 +28,12 @@ function aura_env:Start()
 	self.running = true
 end
 
+function aura_env:UpdateUnit(unit)
+	for i, intPriority in pairs(priorityList) do
+		if intPriority:GetCurrentInterrupter() == unit then
+			intPriority:Update()
+		end
+	end
+end
+
 aura_env.running = true
